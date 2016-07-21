@@ -111,6 +111,7 @@ public abstract class Critter {
 			}
 			int e = this.getEnergy();
 			this.setEnergy(e - Params.walk_energy_cost);
+			this.setWalked(true);
 		} else {
 			int e = this.getEnergy();
 			this.setEnergy(e - Params.walk_energy_cost);
@@ -163,6 +164,7 @@ public abstract class Critter {
 			}
 			int e = this.getEnergy();
 			this.setEnergy(e - Params.run_energy_cost);
+			this.setWalked(true);
 		} else {
 			int e = this.getEnergy();
 			this.setEnergy(e - Params.run_energy_cost);
@@ -322,6 +324,9 @@ public abstract class Critter {
 			population.add(babies.get(i));
 		}
 		babies.clear();
+		for (int i = 0; i < population.size(); i++){
+			int .get(i)
+		}
 	}
 
 	public static void displayWorld() {
