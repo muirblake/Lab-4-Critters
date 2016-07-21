@@ -26,6 +26,7 @@ public abstract class Critter {
 		return "";
 	}
 
+	private boolean fighting;
 	private boolean walked;
 
 	protected boolean isWalked() {
@@ -34,6 +35,14 @@ public abstract class Critter {
 
 	protected void setWalked(boolean walked) {
 		this.walked = walked;
+	}
+
+	public boolean isFighting() {
+		return fighting;
+	}
+
+	public void setFighting(boolean fighting) {
+		this.fighting = fighting;
 	}
 
 	private int energy = 0;
@@ -67,46 +76,80 @@ public abstract class Critter {
 
 	protected final void walk(int direction) {
 		if (this.isWalked() == false) {
+			int tempX = this.getX_coord();
+			int tempY = this.getY_coord();
 			switch (direction) {
 			case 0:
 				int xPos0 = this.getX_coord() + 1;
 				this.setX_coord(xPos0);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 1:
 				int xPos1 = this.getX_coord() + 1;
 				int yPos1 = this.getY_coord() - 1;
 				this.setX_coord(xPos1);
 				this.setY_coord(yPos1);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 2:
 				int yPos2 = this.getY_coord() - 1;
 				this.setY_coord(yPos2);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 3:
 				int xPos3 = this.getX_coord() - 1;
 				int yPos3 = this.getY_coord() - 1;
 				this.setX_coord(xPos3);
 				this.setY_coord(yPos3);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 4:
 				int xPos4 = this.getX_coord() - 1;
 				this.setX_coord(xPos4);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 5:
 				int xPos5 = this.getX_coord() - 1;
 				int yPos5 = this.getY_coord() + 1;
 				this.setX_coord(xPos5);
 				this.setY_coord(yPos5);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 6:
 				int yPos6 = this.getY_coord() + 1;
 				this.setY_coord(yPos6);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 7:
 				int xPos7 = this.getX_coord() + 1;
 				int yPos7 = this.getY_coord() + 1;
 				this.setX_coord(xPos7);
 				this.setY_coord(yPos7);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			}
 			int e = this.getEnergy();
@@ -120,46 +163,80 @@ public abstract class Critter {
 
 	protected final void run(int direction) {
 		if (this.isWalked() == false) {
+			int tempX = this.getX_coord();
+			int tempY = this.getY_coord();
 			switch (direction) {
 			case 0:
 				int xPos0 = this.getX_coord() + 2;
 				this.setX_coord(xPos0);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 1:
 				int xPos1 = this.getX_coord() + 2;
 				int yPos1 = this.getY_coord() - 2;
 				this.setX_coord(xPos1);
 				this.setY_coord(yPos1);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 2:
 				int yPos2 = this.getY_coord() - 2;
 				this.setY_coord(yPos2);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 3:
 				int xPos3 = this.getX_coord() - 2;
 				int yPos3 = this.getY_coord() - 2;
 				this.setX_coord(xPos3);
 				this.setY_coord(yPos3);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 4:
 				int xPos4 = this.getX_coord() - 2;
 				this.setX_coord(xPos4);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 5:
 				int xPos5 = this.getX_coord() - 2;
 				int yPos5 = this.getY_coord() + 2;
 				this.setX_coord(xPos5);
 				this.setY_coord(yPos5);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 6:
 				int yPos6 = this.getY_coord() + 2;
 				this.setY_coord(yPos6);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			case 7:
 				int xPos7 = this.getX_coord() + 2;
 				int yPos7 = this.getY_coord() + 2;
 				this.setX_coord(xPos7);
 				this.setY_coord(yPos7);
+				if (this.isFighting() && isInSharedSpot(this)) {
+					this.setX_coord(tempX);
+					this.setY_coord(tempY);
+				}
 				break;
 			}
 			int e = this.getEnergy();
@@ -171,7 +248,29 @@ public abstract class Critter {
 		}
 	}
 
+	private boolean isInSharedSpot(Critter critter) {
+		int x = critter.getX_coord();
+		int y = critter.getY_coord();
+		for (int index = 0; index < population.size(); index++) {
+			int checkX = population.get(index).getX_coord();
+			int checkY = population.get(index).getY_coord();
+			if (x == checkX && y == checkY) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected final void reproduce(Critter offspring, int direction) {
+		if (this.getEnergy() / 2 < Params.min_reproduce_energy)
+			return;
+		offspring.setEnergy(this.getEnergy() / 2);
+		int postBirthEnergy = this.getEnergy() - offspring.getEnergy();
+		this.setEnergy(postBirthEnergy);
+		offspring.setX_coord(this.getX_coord());
+		offspring.setY_coord(this.getY_coord());
+		offspring.walk(direction);
+		babies.add(offspring);
 	}
 
 	public abstract void doTimeStep();
@@ -265,13 +364,17 @@ public abstract class Critter {
 			population.get(i).doTimeStep();
 		}
 		for (int i = 0; i < population.size(); i++) {
+			population.get(i).setFighting(false);
 			int firstX = population.get(i).getX_coord();
 			for (int j = i + 1; j < population.size(); j++) {
+				population.get(j).setFighting(false);
 				int secondX = population.get(j).getX_coord();
 				if (firstX == secondX) {
 					int firstY = population.get(i).getY_coord();
 					int secondY = population.get(j).getY_coord();
 					if (firstY == secondY) {
+						population.get(i).setFighting(true);
+						population.get(j).setFighting(true);
 						boolean firstFight = population.get(i).fight(population.get(j).toString());
 						boolean secondFight = population.get(j).fight(population.get(i).toString());
 						boolean samePos = (population.get(i).getX_coord() == population.get(j).getX_coord())
@@ -293,23 +396,23 @@ public abstract class Critter {
 							} else {
 								secondStrength = 0;
 							}
-							if (firstStrength == -1 && secondStrength == -1){
+							if (firstStrength == -1 && secondStrength == -1) {
 								population.remove(i);
 								population.remove(j - 1);
 							}
-							if (firstStrength > secondStrength){
+							if (firstStrength > secondStrength) {
 								int newEnergy = population.get(i).getEnergy();
 								newEnergy += (population.get(j).getEnergy() / 2);
 								population.remove(j);
 								population.get(i).setEnergy(newEnergy);
 							}
-							if (firstStrength < secondStrength){
+							if (firstStrength < secondStrength) {
 								int newEnergy = population.get(j).getEnergy();
 								newEnergy += (population.get(i).getEnergy() / 2);
 								population.remove(i);
 								population.get(j).setEnergy(newEnergy);
 							}
-							if (firstStrength == secondStrength){
+							if (firstStrength == secondStrength) {
 								int newEnergy = population.get(i).getEnergy();
 								newEnergy += (population.get(j).getEnergy() / 2);
 								population.remove(j);
@@ -320,12 +423,20 @@ public abstract class Critter {
 				}
 			}
 		}
-		for (int i = 0; i < babies.size(); i++){
+		for (int i = 0; i < babies.size(); i++) {
 			population.add(babies.get(i));
 		}
 		babies.clear();
-		for (int i = 0; i < population.size(); i++){
-			int .get(i)
+		for (int i = 0; i < population.size(); i++) {
+			int afterRest = population.get(i).getEnergy() - Params.rest_energy_cost;
+			population.get(i).setEnergy(afterRest);
+			if (population.get(i).getEnergy() <= 0) {
+				population.remove(i);
+				i--;
+			}
+		}
+		for (int i = 0; i < Params.refresh_algae_count; i++) {
+			makeCritter("Algae");
 		}
 	}
 
