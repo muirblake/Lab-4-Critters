@@ -436,10 +436,16 @@ public abstract class Critter {
 			}
 		}
 		for (int i = 0; i < Params.refresh_algae_count; i++) {
-			makeCritter("Algae");
+			try {
+				makeCritter("Algae");
+			} catch (InvalidCritterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public static void displayWorld() {
+		UIText.printWorld(population);
 	}
 }
