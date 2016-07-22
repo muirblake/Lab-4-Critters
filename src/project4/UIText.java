@@ -97,7 +97,7 @@ public class UIText {
 			if (usercommand.length == 2) {
 				numCritters = 1;
 			} else if (usercommand.length == 3) {
-				numCritters = Integer.parseInt(usercommand[1]);
+				numCritters = Integer.parseInt(usercommand[2]);
 			} else {
 				System.out.println("State a critter name!");
 				throw new IllegalArgumentException();

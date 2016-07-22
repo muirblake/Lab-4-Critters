@@ -282,24 +282,35 @@ public abstract class Critter {
 	 * name of a concrete subclass of Critter, if not an InvalidCritterException
 	 * must be thrown
 	 */
-	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
-		switch (critter_class_name) {
-		case "Craig":
-			Craig newCraig = new Craig();
-			newCraig.setEnergy(Params.start_energy);
-			newCraig.setX_coord(getRandomInt(Params.world_width - 1));
-			newCraig.setY_coord(getRandomInt(Params.world_height - 1));
-			population.add(newCraig);
-			break;
-		case "Algae":
-			Algae newAlgae = new Algae();
-			newAlgae.setEnergy(Params.start_energy);
-			newAlgae.setX_coord(getRandomInt(Params.world_width - 1));
-			newAlgae.setY_coord(getRandomInt(Params.world_height - 1));
-			population.add(newAlgae);
-		default:
-
+	public static void makeCritter(String critter_class_name) throws InvalidCritterException, InstantiationException, IllegalAccessException {
+		Class<?> critclass;
+		try {
+			critclass = Class.forName(critter_class_name);
+		} catch (ClassNotFoundException e) {
+			throw new InvalidCritterException(critter_class_name);
 		}
+		Critter newCritter = (Critter) critclass.newInstance();
+		newCritter.setEnergy(Params.start_energy);
+		newCritter.setX_coord(getRandomInt(Params.world_width - 1));
+		newCritter.setY_coord(getRandomInt(Params.world_height - 1));
+		population.add(newCritter);
+//		switch (critter_class_name) {
+//		case "project4.Craig":
+//			Craig newCraig = new Craig();
+//			newCraig.setEnergy(Params.start_energy);
+//			newCraig.setX_coord(getRandomInt(Params.world_width - 1));
+//			newCraig.setY_coord(getRandomInt(Params.world_height - 1));
+//			population.add(newCraig);
+//			break;
+//		case "Algae":
+//			Algae newAlgae = new Algae();
+//			newAlgae.setEnergy(Params.start_energy);
+//			newAlgae.setX_coord(getRandomInt(Params.world_width - 1));
+//			newAlgae.setY_coord(getRandomInt(Params.world_height - 1));
+//			population.add(newAlgae);
+//		default:
+//
+//		}
 
 	}
 
@@ -368,7 +379,7 @@ public abstract class Critter {
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
-	public static void worldTimeStep() {
+	public static void worldTimeStep() throws InstantiationException, IllegalAccessException {
 		for (int i = 0; i < population.size(); i++) {
 			population.get(i).setWalked(false);
 			population.get(i).doTimeStep();
