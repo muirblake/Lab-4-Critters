@@ -458,7 +458,7 @@ public abstract class Critter {
 		}
 		for (int i = 0; i < Params.refresh_algae_count; i++) {
 			try {
-				makeCritter("Algae");
+				makeCritter("project4.Algae");
 			} catch (InvalidCritterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
