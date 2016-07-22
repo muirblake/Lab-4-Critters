@@ -44,7 +44,7 @@ public abstract class Critter {
 			int tempY = this.y_coord;
 			switch (direction) {
 			case 0:
-				int xPos0 = this.x_coord + 1;
+				int xPos0 = ((this.x_coord + 1) % Params.world_width);
 				this.x_coord = xPos0;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -52,8 +52,8 @@ public abstract class Critter {
 				}
 				break;
 			case 1:
-				int xPos1 = this.x_coord + 1;
-				int yPos1 = this.y_coord - 1;
+				int xPos1 = ((this.x_coord + 1) % Params.world_width);
+				int yPos1 = (this.y_coord - 1) % Params.world_height;
 				this.x_coord = xPos1;
 				this.x_coord = yPos1;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -62,7 +62,7 @@ public abstract class Critter {
 				}
 				break;
 			case 2:
-				int yPos2 = this.y_coord - 1;
+				int yPos2 = (this.y_coord - 1) % Params.world_height;
 				this.y_coord = yPos2;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -70,8 +70,8 @@ public abstract class Critter {
 				}
 				break;
 			case 3:
-				int xPos3 = this.x_coord - 1;
-				int yPos3 = this.y_coord - 1;
+				int xPos3 = (this.x_coord - 1) % Params.world_width;
+				int yPos3 = (this.y_coord - 1) % Params.world_height;
 				this.x_coord = xPos3;
 				this.x_coord = yPos3;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -80,7 +80,7 @@ public abstract class Critter {
 				}
 				break;
 			case 4:
-				int xPos4 = this.x_coord - 1;
+				int xPos4 = (this.x_coord - 1) % Params.world_width;
 				this.x_coord = xPos4;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -88,8 +88,8 @@ public abstract class Critter {
 				}
 				break;
 			case 5:
-				int xPos5 = this.x_coord - 1;
-				int yPos5 = this.y_coord + 1;
+				int xPos5 = (this.x_coord - 1) % Params.world_width;
+				int yPos5 = (this.y_coord + 1) % Params.world_height;
 				this.x_coord = xPos5;
 				this.y_coord = yPos5;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -98,7 +98,7 @@ public abstract class Critter {
 				}
 				break;
 			case 6:
-				int yPos6 = this.y_coord + 1;
+				int yPos6 = (this.y_coord + 1) % Params.world_height;
 				this.y_coord = yPos6;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -106,8 +106,8 @@ public abstract class Critter {
 				}
 				break;
 			case 7:
-				int xPos7 = this.x_coord + 1;
-				int yPos7 = this.y_coord + 1;
+				int xPos7 = (this.x_coord + 1) % Params.world_width;
+				int yPos7 = (this.y_coord + 1) % Params.world_height;
 				this.x_coord = xPos7;
 				this.y_coord = yPos7;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -115,6 +115,12 @@ public abstract class Critter {
 					this.y_coord = tempY;
 				}
 				break;
+			}
+			if (this.x_coord < 0) {
+				this.x_coord += 8;
+			}
+			if(this.y_coord < 0){
+				this.y_coord += 8;
 			}
 			int e = this.getEnergy();
 			this.energy = e - Params.walk_energy_cost;
@@ -131,7 +137,7 @@ public abstract class Critter {
 			int tempY = this.y_coord;
 			switch (direction) {
 			case 0:
-				int xPos0 = this.x_coord + 2;
+				int xPos0 = (this.x_coord + 2) % Params.world_width;
 				this.x_coord = xPos0;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -139,8 +145,8 @@ public abstract class Critter {
 				}
 				break;
 			case 1:
-				int xPos1 = this.x_coord + 2;
-				int yPos1 = this.y_coord - 2;
+				int xPos1 = (this.x_coord + 2) % Params.world_width;
+				int yPos1 = (this.y_coord - 2) % Params.world_height;
 				this.x_coord = xPos1;
 				this.y_coord = yPos1;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -149,7 +155,7 @@ public abstract class Critter {
 				}
 				break;
 			case 2:
-				int yPos2 = this.y_coord - 2;
+				int yPos2 = (this.y_coord - 2) % Params.world_height;
 				this.y_coord = yPos2;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -157,8 +163,8 @@ public abstract class Critter {
 				}
 				break;
 			case 3:
-				int xPos3 = this.x_coord - 2;
-				int yPos3 = this.y_coord - 2;
+				int xPos3 = (this.x_coord - 2) % Params.world_width;
+				int yPos3 = (this.y_coord - 2) % Params.world_height;
 				this.x_coord = xPos3;
 				this.y_coord = yPos3;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -167,7 +173,7 @@ public abstract class Critter {
 				}
 				break;
 			case 4:
-				int xPos4 = this.x_coord - 2;
+				int xPos4 = (this.x_coord - 2) % Params.world_width;
 				this.x_coord = xPos4;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -175,8 +181,8 @@ public abstract class Critter {
 				}
 				break;
 			case 5:
-				int xPos5 = this.x_coord - 2;
-				int yPos5 = this.y_coord + 2;
+				int xPos5 = (this.x_coord - 2) % Params.world_width;
+				int yPos5 = (this.y_coord + 2) % Params.world_height;
 				this.x_coord = xPos5;
 				this.y_coord = yPos5;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -185,7 +191,7 @@ public abstract class Critter {
 				}
 				break;
 			case 6:
-				int yPos6 = this.y_coord + 2;
+				int yPos6 = (this.y_coord + 2) % Params.world_height;
 				this.y_coord = yPos6;
 				if (this.fighting && isInSharedSpot(this)) {
 					this.x_coord = tempX;
@@ -193,8 +199,8 @@ public abstract class Critter {
 				}
 				break;
 			case 7:
-				int xPos7 = this.x_coord + 2;
-				int yPos7 = this.y_coord + 2;
+				int xPos7 = (this.x_coord + 2) % Params.world_width;
+				int yPos7 = (this.y_coord + 2) % Params.world_height;
 				this.x_coord = xPos7;
 				this.y_coord = yPos7;
 				if (this.fighting && isInSharedSpot(this)) {
@@ -202,6 +208,12 @@ public abstract class Critter {
 					this.y_coord = tempY;
 				}
 				break;
+			}
+			if (this.x_coord < 0) {
+				this.x_coord += 8;
+			}
+			if(this.y_coord < 0){
+				this.y_coord += 8;
 			}
 			int e = this.getEnergy();
 			this.energy = e - Params.run_energy_cost;
@@ -425,6 +437,38 @@ public abstract class Critter {
 	}
 
 	public static void displayWorld() {
-		UIText.printWorld(population);
+		printWorld(population);
+	}
+
+	public static void printWorld(java.util.List<Critter> population) {
+		String[][] gfxworld = new String[Params.world_width][Params.world_height];
+		for (Critter c : population) {
+			if (c != null) {
+				gfxworld[c.x_coord][c.y_coord] = c.toString();
+			}
+		}
+		System.out.print("+");
+		for (int i = 0; i < Params.world_width; i++) {
+			System.out.print("-");
+		}
+		System.out.print("+\n");
+		for (int i = 0; i < Params.world_height; i++) {
+			System.out.print("|");
+			for (int j = 0; j < Params.world_width; j++) {
+				if (gfxworld[i][j] == null) {
+					System.out.print(" ");
+				} else {
+					System.out.print(gfxworld[i][j]);
+				}
+			}
+			System.out.print("|\n");
+		}
+		System.out.print("+");
+		for (
+
+		int i = 0; i < Params.world_width; i++) {
+			System.out.print("-");
+		}
+		System.out.print("+\n");
 	}
 }

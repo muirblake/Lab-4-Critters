@@ -5,9 +5,11 @@ import java.util.Scanner;
 
 public class Main {
 
-	Scanner kb = new Scanner(System.in);
-	UIText tui = new UIText(kb);
-	public static void main(String[] args) {
-		System.out.println("GLHF");
+	static Scanner kb = new Scanner(System.in);
+	static UIText tui = new UIText(kb);
+	public static void main(String[] args) throws Exception {
+		while(true){
+			tui.nextcmd();
+		}
 	}
 }

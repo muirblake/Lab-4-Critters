@@ -12,38 +12,7 @@ public class UIText {
 		myinput = s;
 	}
 
-	public static void printWorld(java.util.List<Critter> population) {
-		String[][] gfxworld = new String[Params.world_width][Params.world_height];
-		for (Critter c : population) {
-			gfxworld[c.getX_coord()][c.getY_coord()] = c.toString();		
-		}
-		System.out.print("+");
-		for (int i = 0; i < Params.world_width; i++) {
-			System.out.print("-");
-		}
-		System.out.print("+\n");
-		for (int i = 0; i < Params.world_height; i++) {
-			System.out.print("|");
-			for (int j = 0; j < Params.world_width; j++) {
-				if(gfxworld[i][j] == null){
-					System.out.print(" ");
-				}
-				else{
-					System.out.print(gfxworld[i][j]);
-				}
-			}
-			System.out.print("|\n");
-		}
-		System.out.print("+");
-		for (
-
-		int i = 0; i < Params.world_width; i++) {
-			System.out.print("-");
-		}
-		System.out.print("+\n");
-	}
-
-	public void nextcmd() {
+	public void nextcmd() throws Exception {
 		System.out.print("critters>");
 		String cmd = myinput.nextLine();
 		try {
@@ -65,6 +34,9 @@ public class UIText {
 			System.exit(1);
 		}
 		case ("show"): {
+			if(usercommand.length != 1){
+				throw new IllegalArgumentException();
+			}
 			Critter.displayWorld();
 			return 0;
 		}
@@ -77,6 +49,9 @@ public class UIText {
 				}
 			} else if (usercommand.length == 1) {
 				Critter.worldTimeStep();
+			}
+			else{
+				throw new IllegalArgumentException();
 			}
 			return 0;
 		}
@@ -119,6 +94,18 @@ public class UIText {
 				switch (usercommand[1]) {
 				case "project4.Craig": {
 					Craig.runStats(critterlist);
+				}
+				case "project4.Jimmy1":{
+					Jimmy1.runStats(critterlist);
+				}
+				case "project4.Jimmy2":{
+					Jimmy1.runStats(critterlist);
+				}
+				case "project4.Mule":{
+					Mule.runStats(critterlist);
+				}
+				case "project4.Sentry":{
+					Sentry.runStats(critterlist);
 				}
 				default: {
 					Critter.runStats(critterlist);
