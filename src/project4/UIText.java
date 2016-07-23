@@ -1,3 +1,16 @@
+/* CRITTERS <MyClass.java>
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Blake Muir
+ * Bmm2897
+ * <Student1 5-digit Unique No.>
+ * James Tsao
+ * jt28593
+ * <Student2 5-digit Unique No.>
+ * Slip days used: 1
+ * Fall 2015
+ */
+
 package project4;
 
 import java.awt.List;
@@ -19,6 +32,7 @@ public class UIText {
 			int cmdCode = cmdparse(cmd);
 		} catch (Exception e) {
 			System.out.println("error processing: " + cmd);
+			System.out.println(e);
 		}
 
 	}
@@ -91,26 +105,10 @@ public class UIText {
 			java.util.List<Critter> critterlist;
 			if (usercommand.length == 2) {
 				critterlist = Critter.getInstances(usercommand[1]);
-				switch (usercommand[1]) {
-				case "project4.Craig": {
-					Craig.runStats(critterlist);
-				}
-				case "project4.Jimmy1":{
-					Jimmy1.runStats(critterlist);
-				}
-				case "project4.Jimmy2":{
-					Jimmy1.runStats(critterlist);
-				}
-				case "project4.Mule":{
-					Mule.runStats(critterlist);
-				}
-				case "project4.Sentry":{
-					Sentry.runStats(critterlist);
-				}
-				default: {
-					Critter.runStats(critterlist);
-				}
-				}
+				Class<?>critclass = Class.forName(usercommand[1]);
+				java.lang.reflect.Method rsMethod = critclass.getMethod("runStats", java.util.List.class);
+				rsMethod.invoke(null, critterlist);
+				return 0;
 			} else {
 				throw new IllegalArgumentException();
 			}

@@ -1,8 +1,21 @@
+/* CRITTERS <MyClass.java>
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Blake Muir
+ * Bmm2897
+ * <Student1 5-digit Unique No.>
+ * James Tsao
+ * jt28593
+ * <Student2 5-digit Unique No.>
+ * Slip days used: 1
+ * Fall 2015
+ */
+
 package project4;
 
 public class Params {
-	public final static int world_width = 8;
-	public final static int world_height = 8;
+	public final static int world_width = 121;
+	public final static int world_height = 7;
 	public final static int walk_energy_cost = 2;
 	public final static int run_energy_cost = 5;
 	public final static int rest_energy_cost = 0;
