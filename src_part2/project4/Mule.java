@@ -32,11 +32,12 @@ public class Mule extends Critter {
 		run(dir);
 	}
 	
-	public static void runStats(java.util.List<Critter> mules){
+	public static void runStats(java.util.List<Critter> crits){
+		System.out.println("Total Mule critters: " + crits.size());
 		int totalEnergy = 0;
-		for (Critter m : mules) {
+		for (Critter m : crits) {
 			totalEnergy += m.getEnergy();
 		}
-		System.out.println(totalEnergy);
+		System.out.println("Total energy of Mule critters: "+totalEnergy);
 	}
 }

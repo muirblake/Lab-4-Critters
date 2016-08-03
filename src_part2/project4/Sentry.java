@@ -29,7 +29,12 @@ public class Sentry extends Critter {
 		reproduce(s, Critter.getRandomInt(8));
 	}
 	
-	public static void runStats(java.util.List<Critter> sentries){
-		System.out.println("Sentry statistics are off limits. Please go away.");
+	public static void runStats(java.util.List<Critter> crits){
+		System.out.println("Total Sentry critters: " + crits.size());
+		int totalEnergy = 0;
+		for (Critter m : crits) {
+			totalEnergy += m.getEnergy();
+		}
+		System.out.println("Total energy of Sentry critters: "+totalEnergy);
 	}
 }
