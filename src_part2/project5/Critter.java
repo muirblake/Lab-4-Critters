@@ -407,7 +407,7 @@ public abstract class Critter {
 	private static void makeAlgae(int make) {
 		for (int i = 0; i < make; i++) {
 			try {
-				makeCritter("project4.Algae");
+				makeCritter(Params.basicFood);
 			} catch (InvalidCritterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -422,7 +422,8 @@ public abstract class Critter {
 	}
 
 	public static void displayWorld() {
-		printWorld(population);
+		//printWorld(population);
+		return;
 	}
 
 	public static void printWorld(java.util.List<Critter> population) {

@@ -144,7 +144,7 @@ public class Main extends Application {
 			stepGoBox.setAlignment(Pos.BOTTOM_RIGHT);
 			stepGoBox.getChildren().add(stepGo);
 			grid.add(stepGoBox, 1, 8);
-			statsBtn.setOnAction(new EventHandler<ActionEvent>() {
+			stepGo.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void  handle(ActionEvent event) {
 					Integer numSteps = (Integer) numStepsField.getValue();
@@ -209,7 +209,7 @@ public class Main extends Application {
 			 */
 
 			// grid.setGridLinesVisible(true);
-			Scene scene = new Scene(grid, 1600, 900);
+			Scene scene = new Scene(grid, 800, 600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
