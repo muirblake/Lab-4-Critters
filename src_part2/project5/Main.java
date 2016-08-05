@@ -13,12 +13,17 @@
 
 package project5;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -79,26 +84,20 @@ public class Main extends Application {
 					try {
 						String name = critNameField.getText();
 						Integer numString = (Integer) critNumField.getValue();
-						if(numString == 0 ){
+						if (numString == 0) {
 							addCritMsg.setFill(Color.ROYALBLUE);
 							addCritMsg.setText("");
 							return;
 						}
-						for(int i = 0; i<numString;i++){
+						for (int i = 0; i < numString; i++) {
 							Critter.makeCritter(name);
 						}
 						addCritMsg.setFill(Color.ROYALBLUE);
 						addCritMsg.setText(String.format("%d %s critters made.", numString, name));
 						// Critter.displayWorld(); // Optional
-					} catch (InvalidCritterException e) {
+					} catch (Exception e) {
 						addCritMsg.setFill(Color.FIREBRICK);
-						addCritMsg.setText(String.format("%s is not a valid critter!",critNameField.getText()));
-					} catch (InstantiationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						addCritMsg.setText(String.format("%s is not a valid critter!", critNameField.getText()));
 					}
 				}
 			});
@@ -108,10 +107,36 @@ public class Main extends Application {
 			hbStatsBtn.setAlignment(Pos.BOTTOM_RIGHT);
 			hbStatsBtn.getChildren().add(statsBtn);
 			grid.add(hbStatsBtn, 2, 0);
+			final Text statMsg = new Text();
+			grid.add(statMsg, 4, 0);
+			statsBtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void  handle(ActionEvent event) {
+					try {
+						java.util.List<Critter> critterlist = Critter.getInstances(critNameField.getText());
+						Class<?> critclass = Class.forName(critNameField.getText());
+						java.lang.reflect.Method rsMethod = critclass.getMethod("runStats", java.util.List.class);
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						PrintStream ps = new PrintStream(baos);
+						PrintStream prev = System.out;
+						//System.setOut(ps);
+						rsMethod.invoke(null, critterlist);
+						//System.out.flush();
+						//System.setOut(prev);
+						statMsg.setFill(Color.ROYALBLUE);
+						//statMsg.setText(String.format(baos.toString()));
+						statMsg.setText(String.format("Check the console for stats!"));
+					} catch (Exception e) {
+						statMsg.setFill(Color.FIREBRICK);
+						statMsg.setText(String.format("ERROR running stats for %s critter!", critNameField.getText()));
+						e.printStackTrace();
+					}
+				}
+			});
 
 			Label numSteps = new Label("No of steps:");
 			grid.add(numSteps, 0, 7);
-			Spinner numStepsField = new Spinner(0, 999999999, 0, 10);
+			Spinner numStepsField = new Spinner(0, 999999999, 0, 1);
 			numStepsField.setEditable(true);
 			grid.add(numStepsField, 1, 7);
 			Button stepGo = new Button("Take steps");
@@ -119,6 +144,17 @@ public class Main extends Application {
 			stepGoBox.setAlignment(Pos.BOTTOM_RIGHT);
 			stepGoBox.getChildren().add(stepGo);
 			grid.add(stepGoBox, 1, 8);
+			statsBtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void  handle(ActionEvent event) {
+					Integer numSteps = (Integer) numStepsField.getValue();
+					for(int i = 0; i<numSteps; i++){
+						Critter.displayWorld();
+						Critter.worldTimeStep();
+					}
+				}
+			});
+			
 
 			// --------------------------------------------------------
 			// Seed setting block
@@ -166,8 +202,14 @@ public class Main extends Application {
 			hbstopButton.getChildren().add(stopButton);
 			grid.add(hbstopButton, 3, 9);
 
+			/*
+			 * final Canvas canvas = new Canvas(800, 600); GraphicsContext gc =
+			 * canvas.getGraphicsContext2D(); gc.setFill(Color.RED);
+			 * gc.fillRect(0,0,800, 600); grid.add(canvas, 5, 0);
+			 */
+
 			// grid.setGridLinesVisible(true);
-			Scene scene = new Scene(grid, 1366, 760);
+			Scene scene = new Scene(grid, 1600, 900);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
