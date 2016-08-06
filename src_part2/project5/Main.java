@@ -39,7 +39,7 @@ import javafx.scene.control.Slider;
 
 public class Main extends Application {
 	static boolean runAnimation = false;
-
+	Thread aniThread;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -227,10 +227,11 @@ public class Main extends Application {
 				}
 			});
 			// ----------------------------------------------------------
+			
 
 			Label animationLabel = new Label("Animation speed:");
 			grid.add(animationLabel, 0, 9);
-			Slider animationSlider = new Slider(0, 100, 1);
+			Slider animationSlider = new Slider(0, 100, 50);
 			animationSlider.setShowTickLabels(true);
 			animationSlider.setShowTickMarks(true);
 			grid.add(animationSlider, 1, 9);
@@ -244,19 +245,22 @@ public class Main extends Application {
 			hbstopButton.setAlignment(Pos.BOTTOM_RIGHT);
 			hbstopButton.getChildren().add(stopButton);
 			grid.add(hbstopButton, 3, 9);
-			Button showButton = new Button("Show");
-			HBox hbShowButton = new HBox(10);
-			hbShowButton.setAlignment(Pos.BOTTOM_RIGHT);
-			hbShowButton.getChildren().add(showButton);
-			grid.add(hbShowButton, 2, 8);
 			animateButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					try {
-						while (runAnimation) {
-							Critter.worldTimeStep();
-							Critter.displayWorld();
-						}
+						runAnimation = true;
+						addBtn.setDisable(true);
+						statsBtn.setDisable(true);
+						stepGo.setDisable(true);
+						onestepGo.setDisable(true);
+						hundredstepGo.setDisable(true);
+						thousandstepGo.setDisable(true);
+						seedButton.setDisable(true);
+						animationSlider.setDisable(true);
+						stopButton.setDisable(false);
+						aniThread = new Thread(new Animate((animationSlider.getValue())));
+						aniThread.start();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -267,6 +271,16 @@ public class Main extends Application {
 				public void handle(ActionEvent event) {
 					try {
 						runAnimation = false;
+						addBtn.setDisable(false);
+						statsBtn.setDisable(false);
+						stepGo.setDisable(false);
+						onestepGo.setDisable(false);
+						hundredstepGo.setDisable(false);
+						thousandstepGo.setDisable(false);
+						seedButton.setDisable(false);
+						animationSlider.setDisable(false);
+						stopButton.setDisable(true);
+						aniThread.interrupt();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
