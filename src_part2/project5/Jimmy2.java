@@ -40,7 +40,12 @@ public class Jimmy2 extends Critter {
 			Jimmy2 child = new Jimmy2();
 			reproduce(child, (dir + (Critter.getRandomInt(2) % 8)));
 		}
-		run(dir);
+		if (getEnergy() > Params.rest_energy_cost + Params.look_energy_cost) {
+			if(look2(dir).equals("J")){
+				walk(dir);
+			}
+		}
+		walk(dir);
 	}
 
 	public static void runStats(java.util.List<Critter> crits) {

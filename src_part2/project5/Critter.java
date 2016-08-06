@@ -126,6 +126,8 @@ public abstract class Critter {
 			if(this.x_coord > Params.world_width )this.x_coord = this.x_coord - Params.world_width - 1;
 			if(this.y_coord < 0 )this.y_coord = Params.world_height + this.y_coord;
 			if(this.y_coord > Params.world_height )this.y_coord = this.y_coord - Params.world_height - 1;
+			if(this.x_coord == Params.world_width) this.x_coord = 0;
+			if(this.y_coord == Params.world_height)this.y_coord = 0;
 			if (this.fighting && isInSharedSpot(this)) {
 				this.x_coord = tempX;
 				this.y_coord = tempY;
@@ -195,6 +197,8 @@ public abstract class Critter {
 			if(this.x_coord > Params.world_width )this.x_coord = this.x_coord - Params.world_width - 1;
 			if(this.y_coord < 0 )this.y_coord = Params.world_height + this.y_coord;
 			if(this.y_coord > Params.world_height )this.y_coord = this.y_coord - Params.world_height - 1;
+			if(this.x_coord == Params.world_width) this.x_coord = 0;
+			if(this.y_coord == Params.world_height)this.y_coord = 0;
 			if (this.fighting && isInSharedSpot(this)) {
 				this.x_coord = tempX;
 				this.y_coord = tempY;
@@ -231,6 +235,8 @@ public abstract class Critter {
 		if(offspring.x_coord > Params.world_width )offspring.x_coord = offspring.x_coord - Params.world_width - 1;
 		if(offspring.y_coord < 0 )offspring.y_coord = Params.world_height + offspring.y_coord;
 		if(offspring.y_coord > Params.world_height )offspring.y_coord = offspring.y_coord - Params.world_height - 1;
+		if(this.x_coord == Params.world_width) this.x_coord = 0;
+		if(this.y_coord == Params.world_height)this.y_coord = 0;
 		babies.add(offspring);
 	}
 
@@ -422,7 +428,7 @@ public abstract class Critter {
 	}
 
 	public static void displayWorld() {
-		//printWorld(population);
+		printWorld(population);
 		return;
 	}
 

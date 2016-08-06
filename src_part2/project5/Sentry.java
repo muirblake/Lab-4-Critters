@@ -16,33 +16,40 @@ package project5;
 import project5.Critter.CritterShape;
 
 public class Sentry extends Critter {
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return "S";
 	}
 
-	public boolean fight(String not_used){
+	public boolean fight(String not_used) {
 		return true;
 	}
+
 	@Override
-	public void doTimeStep(){
+	public void doTimeStep() {
 		Sentry s = new Sentry();
-		reproduce(s, Critter.getRandomInt(8));
+		if (getEnergy() > Params.min_reproduce_energy + Params.rest_energy_cost + Params.run_energy_cost) {
+			reproduce(s, Critter.getRandomInt(8));
+		}
 	}
-	
-	public static void runStats(java.util.List<Critter> crits){
+
+	public static void runStats(java.util.List<Critter> crits) {
 		System.out.println("Total Sentry critters: " + crits.size());
 		int totalEnergy = 0;
 		for (Critter m : crits) {
 			totalEnergy += m.getEnergy();
 		}
-		System.out.println("Total energy of Sentry critters: "+totalEnergy);
+		System.out.println("Total energy of Sentry critters: " + totalEnergy);
 	}
-	
-	@Override
-	public CritterShape viewShape() { return CritterShape.TRIANGLE; }
 
 	@Override
-	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.BLUEVIOLET; }
+	public CritterShape viewShape() {
+		return CritterShape.TRIANGLE;
+	}
+
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() {
+		return javafx.scene.paint.Color.BLUEVIOLET;
+	}
 }

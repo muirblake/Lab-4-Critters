@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,11 +38,13 @@ import javafx.stage.Stage;
 import javafx.scene.control.Slider;
 
 public class Main extends Application {
+	static boolean runAnimation = false;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			primaryStage.setTitle("Java FX Critters");
-
+			Group root = new Group();
 			// Add a grid pane to lay out the buttons and text fields.
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.TOP_LEFT);
@@ -108,10 +111,10 @@ public class Main extends Application {
 			hbStatsBtn.getChildren().add(statsBtn);
 			grid.add(hbStatsBtn, 2, 0);
 			final Text statMsg = new Text();
-			grid.add(statMsg, 4, 0);
+			grid.add(statMsg, 6, 0);
 			statsBtn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void  handle(ActionEvent event) {
+				public void handle(ActionEvent event) {
 					try {
 						java.util.List<Critter> critterlist = Critter.getInstances(critNameField.getText());
 						Class<?> critclass = Class.forName(critNameField.getText());
@@ -119,17 +122,17 @@ public class Main extends Application {
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						PrintStream ps = new PrintStream(baos);
 						PrintStream prev = System.out;
-						//System.setOut(ps);
+						// System.setOut(ps);
 						rsMethod.invoke(null, critterlist);
-						//System.out.flush();
-						//System.setOut(prev);
+						// System.out.flush();
+						// System.setOut(prev);
 						statMsg.setFill(Color.ROYALBLUE);
-						//statMsg.setText(String.format(baos.toString()));
+						// statMsg.setText(String.format(baos.toString()));
 						statMsg.setText(String.format("Check the console for stats!"));
 					} catch (Exception e) {
 						statMsg.setFill(Color.FIREBRICK);
 						statMsg.setText(String.format("ERROR running stats for %s critter!", critNameField.getText()));
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 				}
 			});
@@ -146,15 +149,55 @@ public class Main extends Application {
 			grid.add(stepGoBox, 1, 8);
 			stepGo.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void  handle(ActionEvent event) {
+				public void handle(ActionEvent event) {
 					Integer numSteps = (Integer) numStepsField.getValue();
-					for(int i = 0; i<numSteps; i++){
-						Critter.displayWorld();
+					for (int i = 0; i < numSteps; i++) {
 						Critter.worldTimeStep();
 					}
+					Critter.displayWorld();
 				}
 			});
-			
+			Button onestepGo = new Button("Take 1 step");
+			HBox onestepGoBox = new HBox(10);
+			onestepGoBox.setAlignment(Pos.BOTTOM_RIGHT);
+			onestepGoBox.getChildren().add(onestepGo);
+			grid.add(onestepGoBox, 3, 8);
+			onestepGo.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					Critter.worldTimeStep();
+					Critter.displayWorld();
+				}
+			});
+			Button hundredstepGo = new Button("Take 100 steps");
+			HBox hundredstepGoBox = new HBox(10);
+			hundredstepGoBox.setAlignment(Pos.BOTTOM_RIGHT);
+			hundredstepGoBox.getChildren().add(hundredstepGo);
+			grid.add(hundredstepGoBox, 4, 8);
+			hundredstepGo.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					Integer numSteps = (Integer) numStepsField.getValue();
+					for (int i = 0; i < 100; i++) {
+						Critter.worldTimeStep();
+					}
+					Critter.displayWorld();
+				}
+			});
+			Button thousandstepGo = new Button("Take 1000 steps");
+			HBox thousandstepGoBox = new HBox(10);
+			thousandstepGoBox.setAlignment(Pos.BOTTOM_RIGHT);
+			thousandstepGoBox.getChildren().add(thousandstepGo);
+			grid.add(thousandstepGoBox, 5, 8);
+			thousandstepGo.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					for (int i = 0; i < 1000; i++) {
+						Critter.worldTimeStep();
+					}
+					Critter.displayWorld();
+				}
+			});
 
 			// --------------------------------------------------------
 			// Seed setting block
@@ -201,15 +244,45 @@ public class Main extends Application {
 			hbstopButton.setAlignment(Pos.BOTTOM_RIGHT);
 			hbstopButton.getChildren().add(stopButton);
 			grid.add(hbstopButton, 3, 9);
+			Button showButton = new Button("Show");
+			HBox hbShowButton = new HBox(10);
+			hbShowButton.setAlignment(Pos.BOTTOM_RIGHT);
+			hbShowButton.getChildren().add(showButton);
+			grid.add(hbShowButton, 2, 8);
+			animateButton.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					try {
+						while (runAnimation) {
+							Critter.worldTimeStep();
+							Critter.displayWorld();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			stopButton.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					try {
+						runAnimation = false;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 
 			/*
-			 * final Canvas canvas = new Canvas(800, 600); GraphicsContext gc =
-			 * canvas.getGraphicsContext2D(); gc.setFill(Color.RED);
-			 * gc.fillRect(0,0,800, 600); grid.add(canvas, 5, 0);
+			 * Stage stage2 = new Stage(); final Canvas canvas = new Canvas(300,
+			 * 300); GraphicsContext gc = canvas.getGraphicsContext2D();
+			 * gc.setFill(Color.RED); gc.fillRect(0, 0, 300, 300);
+			 * root.getChildren().add(canvas); stage2.setScene(new Scene(root));
+			 * stage2.show();
 			 */
 
 			// grid.setGridLinesVisible(true);
-			Scene scene = new Scene(grid, 800, 600);
+			Scene scene = new Scene(grid, 1000, 500);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 

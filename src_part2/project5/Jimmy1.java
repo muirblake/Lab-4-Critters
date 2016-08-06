@@ -17,9 +17,9 @@ import project5.Critter.CritterShape;
 
 public class Jimmy1 extends Critter {
 	private int dir;
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return "J";
 	}
 
@@ -34,11 +34,17 @@ public class Jimmy1 extends Critter {
 
 	@Override
 	public void doTimeStep() {
-		if(getEnergy() > Params.min_reproduce_energy + Params.rest_energy_cost + Params.run_energy_cost){
+
+		if (getEnergy() > Params.min_reproduce_energy + Params.rest_energy_cost + Params.run_energy_cost) {
 			Jimmy1 child = new Jimmy1();
 			reproduce(child, (dir + (Critter.getRandomInt(2) % 8)));
 		}
 		dir = Critter.getRandomInt(8);
+		if (getEnergy() > Params.rest_energy_cost + Params.look_energy_cost) {
+			if(look2(dir).equals("J")){
+				dir = (dir+4) %8;
+			}
+		}
 		run(dir);
 	}
 
@@ -48,12 +54,16 @@ public class Jimmy1 extends Critter {
 		for (Critter m : crits) {
 			totalEnergy += m.getEnergy();
 		}
-		System.out.println("Total energy of Jimmy1 critters: "+totalEnergy);
+		System.out.println("Total energy of Jimmy1 critters: " + totalEnergy);
 	}
-	
-	@Override
-	public CritterShape viewShape() { return CritterShape.STAR; }
 
 	@Override
-	public javafx.scene.paint.Color viewOutlineColor() { return javafx.scene.paint.Color.AQUA; }
+	public CritterShape viewShape() {
+		return CritterShape.STAR;
+	}
+
+	@Override
+	public javafx.scene.paint.Color viewOutlineColor() {
+		return javafx.scene.paint.Color.AQUA;
+	}
 }
